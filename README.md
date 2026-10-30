@@ -46,3 +46,5 @@ All frameworks, terminology, and heuristics are the intellectual property of Rob
 The original synthesis in this repository — the skill files, summaries, indexes, and structure — is © 2026 Nima Ghorbani and licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE). You're free to share and adapt it, including commercially, as long as you give appropriate credit.
 
 The underlying frameworks and terminology belong to Robert C. Martin (see [Credits & Disclaimer](#credits--disclaimer)).
+
+**Fork changes** (by Hernan Garchtrom, also CC BY 4.0): fuller comments and functions entries, the full smell-code catalog in original wording, an apply/review checklist, a precedence rule (the book is authoritative over custom notes), and TypeScript translations. The full-catalog cross-check used [ertugrul-dmr/clean-code-skills](https://github.com/ertugrul-dmr/clean-code-skills); no text was copied from it.

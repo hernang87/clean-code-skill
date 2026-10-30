@@ -26,11 +26,11 @@ When you ask about something not in Core Frameworks, I read the relevant glossar
 
 **The prime directive.** Clean code does one thing well and *reads like well-written prose*. The only way to go fast is to keep the code clean — always. Apply the **Boy Scout Rule**: leave the code cleaner than you found it on every check-in. Beware **LeBlanc's Law**: *Later equals never.*
 
-**Functions.** Small, then smaller. **Do one thing**, at **one level of abstraction**, and read top-down (**Stepdown Rule**). Arguments: 0 > 1 > 2 > 3; **no flag arguments** (they announce the function does >1 thing), **no output arguments**. **Command Query Separation**: do something or answer something, never both. Prefer **exceptions over return codes**; eliminate duplication (**DRY** — "the root of all evil").
+**Functions.** Small, then smaller. **Do one thing**, at **one level of abstraction**, and read top-down (**Stepdown Rule**). Arguments: 0 > 1 > 2 > 3; **no flag arguments** (they announce the function does >1 thing), **no output arguments**. **No side effects** — a hidden state change makes the name lie and creates temporal coupling. Multiple `return`s are fine in small functions. **Command Query Separation**: do something or answer something, never both. Prefer **exceptions over return codes**; eliminate duplication (**DRY** — "the root of all evil").
 
 **Naming.** Use intention-revealing, pronounceable, searchable names; avoid disinformation and encodings (no Hungarian/`m_`/`I`-prefix). Classes are nouns, methods are verbs. **One word per concept.** Name length scales with scope. A name that needs a comment is a failed name.
 
-**Comments.** A comment is a failure to express intent in code; the best comment is the one you found a way not to write. **Comments lie** as code drifts. **Delete commented-out code immediately** — version control remembers.
+**Comments.** Comments are a necessary evil: prefer expressing intent in code, because **comments lie** as code drifts. Some comments earn their place — legal notices, informative context, the *why* behind a decision, clarification of an unchangeable API, warnings of consequences, TODOs, amplification of something easy to miss, and docs for public APIs. Remove noise, redundant, journal, and misleading comments. **Delete commented-out code** — version control remembers.
 
 **Objects vs. Data (anti-symmetry).** Objects hide data and expose behavior → easy to add new *types*. Data structures expose data → easy to add new *functions*. Don't build **hybrids**. Obey the **Law of Demeter** — talk only to immediate friends; no train wrecks. **Tell, don't ask.**
 
@@ -49,6 +49,38 @@ When you ask about something not in Core Frameworks, I read the relevant glossar
 **Concurrency.** Decouples *what* from *when* — powerful but hard. Isolate concurrency code (SRP); limit and protect shared mutable data; prefer copies and thread-confinement; learn `java.util.concurrent`. Treat every intermittent failure as a likely threading bug.
 
 **Definition of done.** It **works (tested)** *and* it's **right (clean)**. Working alone is not done — refine successively (stop and clean the moment code starts to rot).
+
+---
+
+## Apply When Writing or Reviewing
+
+1. Names reveal intent; one word per concept; length matches scope (N1–N7).
+2. Each function does one thing at one level of abstraction; ≤3 args, no flag args, no hidden side effects (F1–F4, G30, G34).
+3. No duplication (G5); nothing at the wrong level of abstraction (G6); no magic numbers (G25).
+4. Boundaries and errors handled explicitly; no ignored failures (G3, G4).
+5. Comments explain *why*, not *what* (C1–C5).
+
+Report each violation as: **smell code · location · one-line fix** (e.g. `G25 · utils.ts:42 · extract SECONDS_PER_DAY`).
+
+## Precedence
+
+**The book is the authority.** Everything in this skill that is not a restatement of the
+book (the checklist, the TypeScript Notes, any custom guidance) is an aid for applying the
+book. If a custom note and the book disagree, follow the book and treat the note as a bug.
+
+Project or harness rules (for example, limits on what a task can change) still bound
+*what you are allowed to change*. They do not redefine what clean code is. When such a rule
+stops you from applying a principle, say which smell you left in place and why.
+
+## TypeScript Notes
+
+These are translations of the book's principles into TypeScript idiom. They do not replace them.
+
+- **Never return or pass null** — this also applies to `undefined` as a "nothing" value. Return an empty collection or a Special Case object. Use `strictNullChecks` so the compiler catches what is left.
+- **Exceptions over return codes** — all TS exceptions are unchecked, which is what the book recommends. Throw errors that carry context, and don't return error codes or sentinel values.
+- **Polymorphism over switch (G23)** — allow one `switch` on a type discriminant, kept inside a factory. Every other dispatch uses polymorphism.
+- **Java rules (J1–J3), translated** — J1: import only what you use. J2: don't share constants through inheritance. J3: prefer enums or literal unions over loose constants.
+- **Encodings (N6)** — don't prefix interfaces with `I` and don't put types in names. The type system already carries that information.
 
 ---
 
@@ -77,6 +109,8 @@ groups (C/E/F/G/J/N/T) are summarized in [cheatsheet.md](cheatsheet.md).
 - **Simple Design (four rules)** → Emergent design
 - **Smells & heuristics catalog (G/N/F/C/T/E/J)** → [cheatsheet.md](cheatsheet.md)
 - **Special Case Pattern** → Error handling; [patterns.md](patterns.md)
+- **Code review / applying the rules** → Apply When Writing or Reviewing; Precedence
+- **TypeScript** → TypeScript Notes
 
 ## Supporting Files
 
