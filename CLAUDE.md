@@ -26,8 +26,8 @@ This repo is a **summary of a methodology's principles**, *not* a reproduction o
 ## Layout
 
 - `SKILL.md` — master file: disclaimer, Core Frameworks & Mental Models (the heart of the
-  skill), a topic index, and scope notes.
-- `cheatsheet.md` — one-page quick reference of every rule, grouped by topic + smell codes.
+  skill), review checklist, precedence rule, and TypeScript notes.
+- `cheatsheet.md` — formatting, deadlock conditions, and the smell-code catalog (no duplication of SKILL.md).
 - `glossary.md` — key terms with concise, original definitions.
 - `patterns.md` — concrete techniques in when / how / trade-offs form.
 - `README.md` — install + usage + Credits & Disclaimer.

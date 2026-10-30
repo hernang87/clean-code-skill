@@ -8,10 +8,10 @@ It's a topic-organized toolkit, not a book summary. It preserves the author's te
 
 | File | Purpose |
 |------|---------|
-| `SKILL.md` | Master file — core frameworks front-loaded, plus a topic index |
+| `SKILL.md` | Master file — core frameworks, review checklist, precedence, TypeScript notes |
 | `glossary.md` | Key terms with concise definitions |
 | `patterns.md` | Concrete techniques (when / how / trade-offs) |
-| `cheatsheet.md` | One-page quick reference of every rule |
+| `cheatsheet.md` | Formatting, deadlock conditions, and the full smell-code catalog |
 
 ## Install
 

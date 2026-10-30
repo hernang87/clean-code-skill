@@ -1,6 +1,6 @@
 ---
 name: martin-clean-code
-description: "An independent quick-reference for the clean-code principles popularized by Robert C. Martin. Use when applying clean-code frameworks for naming, functions, error handling, classes (SRP/OCP/DIP), unit testing (TDD/F.I.R.S.T.), refactoring, and the smells & heuristics catalog (G1–G36), or when reviewing code for cleanliness."
+description: "Robert C. Martin's Clean Code principles and smell catalog (C/E/F/G/J/N/T, G1–G36). Use when writing, reviewing, or refactoring code for naming, functions, comments, error handling, SRP/OCP/DIP, TDD/F.I.R.S.T., or a smell code."
 allowed-tools:
   - Read
   - Grep
@@ -9,18 +9,9 @@ argument-hint: [topic, framework name, or smell code (e.g. G14)]
 
 # Clean Code Principles — Quick Reference
 
-> **Disclaimer** — This is an independent quick-reference for the clean-code *principles and craftsmanship practices* popularized by Robert C. Martin. It does **not** reproduce the book's text, code listings, examples, figures, or chapter structure; it restates the named frameworks and terminology in original, condensed form. It is a practical aid, **not a substitute** for the book — read *Clean Code: A Handbook of Agile Software Craftsmanship* (Robert C. Martin, Prentice Hall, 2008) for the complete, authoritative treatment. All frameworks, terminology, and heuristics are the intellectual property of Robert C. Martin and his publisher.
+> **Disclaimer** — Independent restatement of the principles in Robert C. Martin's *Clean Code* (Prentice Hall, 2008); it does not reproduce the book's text, examples, or structure, and is not a substitute for it. Frameworks and terminology are the IP of the author and publisher.
 
-## How to Use This Skill
-
-- **Without arguments** — load the core frameworks below for reference while coding or reviewing.
-- **With a topic** — ask about `naming`, `error handling`, `TDD`, `SRP`, `concurrency`; I answer from the Core Frameworks below and the supporting files.
-- **With a smell code** — ask about `G14` or `F3`; see the smell-code groups in [cheatsheet.md](cheatsheet.md).
-- **For terms or techniques** — see [glossary.md](glossary.md) (definitions) and [patterns.md](patterns.md) (when / how / trade-offs).
-
-When you ask about something not in Core Frameworks, I read the relevant glossary/patterns/cheatsheet file first.
-
----
+Smell codes and formatting → [cheatsheet.md](cheatsheet.md) · terms → [glossary.md](glossary.md) · techniques → [patterns.md](patterns.md). Read them only when the question needs them.
 
 ## Core Frameworks & Mental Models
 
@@ -81,48 +72,3 @@ These are translations of the book's principles into TypeScript idiom. They do n
 - **Polymorphism over switch (G23)** — allow one `switch` on a type discriminant, kept inside a factory. Every other dispatch uses polymorphism.
 - **Java rules (J1–J3), translated** — J1: import only what you use. J2: don't share constants through inheritance. J3: prefer enums or literal unions over loose constants.
 - **Encodings (N6)** — don't prefix interfaces with `I` and don't put types in names. The type system already carries that information.
-
----
-
-## Topic Index
-
-Each topic maps to its entry in **Core Frameworks & Mental Models** above; the smell-code
-groups (C/E/F/G/J/N/T) are summarized in [cheatsheet.md](cheatsheet.md).
-
-- **Adapter / boundaries** → Boundaries
-- **Architecture / systems** → Systems
-- **Cohesion / classes** → Classes
-- **Comments** → Comments (smell group C1–C5)
-- **Concurrency / threads / deadlock** → Concurrency
-- **Dependency Injection / IoC** → Systems
-- **DIP / OCP / SRP** → Classes
-- **DRY / duplication** → Functions, Emergent design (smell G5)
-- **Error handling / exceptions / null** → Error handling
-- **F.I.R.S.T. / TDD / testing** → Tests (smell group T1–T9)
-- **Formatting** → see [cheatsheet.md](cheatsheet.md)
-- **Functions / arguments / flag args** → Functions (smell group F1–F4)
-- **Law of Demeter / train wreck** → Objects vs. Data (smell G36)
-- **Naming** → Naming (smell group N1–N7)
-- **Objects vs data structures** → Objects vs. Data
-- **Polymorphism vs switch** → Functions (smell G23)
-- **Refactoring / successive refinement** → Definition of done; [patterns.md](patterns.md)
-- **Simple Design (four rules)** → Emergent design
-- **Smells & heuristics catalog (G/N/F/C/T/E/J)** → [cheatsheet.md](cheatsheet.md)
-- **Special Case Pattern** → Error handling; [patterns.md](patterns.md)
-- **Code review / applying the rules** → Apply When Writing or Reviewing; Precedence
-- **TypeScript** → TypeScript Notes
-
-## Supporting Files
-
-- [glossary.md](glossary.md) — key terms with concise definitions
-- [patterns.md](patterns.md) — concrete techniques (when / how / trade-offs)
-- [cheatsheet.md](cheatsheet.md) — one-page quick reference of every rule
-
----
-
-## Scope & Limits
-
-The principles here are language-agnostic; the original book's examples are written in Java.
-This is a condensed reference for *applying* the principles — for the full treatment,
-worked examples, and case studies, read the book. For applying these to a specific codebase,
-combine with project tools and reviews.
