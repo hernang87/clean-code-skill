@@ -7,7 +7,7 @@
 
 ## Extract Till You Drop (Small Functions)
 **When**: a function does more than one thing or mixes abstraction levels.
-**How**: extract sub-steps into functions named for *what* they do until each does one thing; apply the Stepdown Rule so the file reads top-down.
+**How**: extract sub-steps into functions named for *what* they do until each does one thing — stop when every step sits one level below the name and any further extraction would only restate the code; apply the Stepdown Rule so the file reads top-down.
 **Trade-offs**: many small functions; navigation relies on good names + IDE.
 
 ## Replace Switch with Polymorphism (Abstract Factory)
@@ -37,8 +37,13 @@
 
 ## Separate Construction from Use (DI / Separation of Main)
 **When**: objects build their own dependencies (hard-wired, global dependencies; lazy-init that couples construction to use).
-**How**: move construction to `main`/factories/DI container; pass fully-built collaborators in; depend on abstractions (DIP).
+**How**: move construction to `main`/factories/DI container; pass fully-built collaborators in; depend on abstractions (DIP). The concern is hard-wired, global dependencies, not every `new`.
 **Trade-offs**: a wiring layer; yields testable, flexible, swappable components.
+
+## Grow the System Incrementally
+**When**: choosing architecture, frameworks, or standards.
+**How**: keep domain code free of framework entanglement; adopt standards and frameworks only for demonstrated value; do the simplest thing that can possibly work; no big design up front; defer decisions to the last possible moment.
+**Trade-offs**: some later restructuring; avoids paying for guesses that turn out wrong.
 
 ## Four Rules of Simple Design (drive emergent design)
 **When**: continuously, as you add features.
@@ -47,7 +52,7 @@
 
 ## Successive Refinement under Tests
 **When**: always — a rough first draft is normal; also whenever code starts sliding toward a mess.
-**How**: get trustworthy tests first (measure coverage, add what's missing); refactor in tiny steps, restoring green before the next change; check every caller before deleting or moving; never a big-bang rewrite.
+**How**: get trustworthy tests first (measure coverage, add what's missing); fix behavior before polishing structure; refactor in tiny steps, restoring green before the next change; check every caller before deleting, moving, or inlining; never a big-bang rewrite. Decisions may reverse — judge by the end state. Without trustworthy tests, leave the smell and report it.
 **Trade-offs**: short-term feature pause; avoids the unrecoverable mess.
 
 ## Concurrency Defenses

@@ -33,13 +33,13 @@ Smell codes and formatting → [cheatsheet.md](cheatsheet.md) · terms → [glos
 
 **Classes.** Keep them small — count **responsibilities**, not lines; if you can't describe the class in about 25 words without "and/or/but", or its name is vague, it has too many. **SRP**: one reason to change. Keep **cohesion** high (maximal cohesion is neither advisable nor possible; falling cohesion = a class wants to split). Organize for change: **OCP** and **DIP** — but restructure when change actually arrives; a logically complete class can stay as it is.
 
-**Systems.** **Separate construction from use** — move wiring to `main`/factories/**Dependency Injection**; the concern is hard-wired, global dependencies, not every `new`. Keep domain code free of framework entanglement; adopt standards and frameworks only for demonstrated value. Grow architecture incrementally; do the simplest thing that can possibly work; no big design up front; defer decisions to the last possible moment.
+**Systems.** **Separate construction from use** (DI, factories); grow architecture incrementally. Details → [patterns.md](patterns.md).
 
 **Emergent design — the Four Rules of Simple Design** (priority order): (1) Runs all the tests, (2) Contains no duplication, (3) Expresses programmer intent, (4) Minimizes classes/methods. Tests first; then refactor (rules 2–4) under green. Avoid dogma (an interface per class, splitting for its own sake).
 
 **Concurrency.** Decouples *what* from *when* — powerful but hard. Isolate concurrency code (SRP); limit and protect shared mutable data; keep synchronized sections small; prefer copies and thread-confinement; get non-concurrent code working first. Never dismiss an intermittent failure as a one-off — treat it as a candidate threading bug.
 
-**Refactoring.** A rough first draft cleaned up afterwards is the normal workflow. Refactor only under tests you trust — measure coverage, add missing tests first; fix behavior before polishing structure. Take many tiny steps; never a big-bang rewrite. Restore green before the next change. Check every caller before deleting, moving, or inlining. Decisions may reverse — judge by the end state.
+**Refactoring.** Only under tests you trust, in tiny steps, checking every caller first; never a big-bang rewrite. Details → [patterns.md](patterns.md) (Successive Refinement).
 
 **Definition of done.** It **works (tested)** *and* it is **clean** — cleaner than you found it, and honest about what is left. Working alone is not done.
 
