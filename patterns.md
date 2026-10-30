@@ -12,12 +12,12 @@
 
 ## Replace Switch with Polymorphism (Abstract Factory)
 **When**: a switch/if-else dispatches on a type code and tends to recur.
-**How**: bury one switch in a factory that returns polymorphic subclasses; add new types by adding classes (OCP), not editing the switch.
+**How**: bury one switch in a factory that returns polymorphic subclasses; new types touch only the factory switch; every dispatching function stays closed (OCP). Use where new *types* are likely; where new *functions* are likely, data structures + functions fit better.
 **Trade-offs**: more classes; eliminates repeated, error-prone branching (G23).
 
 ## Wrap Third-Party APIs
 **When**: a foreign type (e.g. `Map`) or library would otherwise spread through the codebase.
-**How**: encapsulate it in a class exposing only the operations you need; convert its exceptions to yours.
+**How**: keep it inside one class (or close family) exposing only the operations you need; don't pass it through public APIs; convert its exceptions to yours. Not every use needs a wrapper.
 **Trade-offs**: a thin wrapper layer; gains testability and one-place migration.
 
 ## Learning Tests
@@ -36,7 +36,7 @@
 **Trade-offs**: must define exception/special-case types; logic stays clean and NPE-free.
 
 ## Separate Construction from Use (DI / Separation of Main)
-**When**: objects build their own dependencies (lazy-init, `new` in business logic).
+**When**: objects build their own dependencies (hard-wired, global dependencies; lazy-init that couples construction to use).
 **How**: move construction to `main`/factories/DI container; pass fully-built collaborators in; depend on abstractions (DIP).
 **Trade-offs**: a wiring layer; yields testable, flexible, swappable components.
 
@@ -46,8 +46,8 @@
 **Trade-offs**: requires test discipline; design emerges instead of being over-planned.
 
 ## Successive Refinement under Tests
-**When**: code starts sliding toward a mess.
-**How**: **stop adding features**; refactor in tiny steps with the test suite green before continuing.
+**When**: always — a rough first draft is normal; also whenever code starts sliding toward a mess.
+**How**: get trustworthy tests first (measure coverage, add what's missing); refactor in tiny steps, restoring green before the next change; check every caller before deleting or moving; never a big-bang rewrite.
 **Trade-offs**: short-term feature pause; avoids the unrecoverable mess.
 
 ## Concurrency Defenses

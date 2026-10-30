@@ -8,11 +8,11 @@ Core principles live in SKILL.md; this file holds only what it does not.
 
 ## Concurrency
 - Deadlock needs all four: Mutual Exclusion, Lock & Wait, No Preemption, Circular Wait — break one.
-- Treat every intermittent failure as a threading bug; jiggle to expose.
+- Never dismiss an intermittent failure as a one-off; treat it as a candidate threading bug. Jiggle (randomly vary thread timing with sleeps/yields) under tests to expose it.
 
 ## Smell Codes
 **C** Comments · **E** Environment · **F** Functions · **G** General (G1–G36) · **J** Java · **N** Names · **T** Tests.
-**G5 Duplication** and **G6 Wrong Level of Abstraction** are among the most common and costly.
+**G5 Duplication** is among the book's most important rules; **G6 Wrong Level of Abstraction** is among the hardest to get right.
 
 **Comments** — C1 metadata that belongs in VCS/tracker · C2 obsolete · C3 redundant · C4 poorly written · C5 commented-out code
 
@@ -27,11 +27,11 @@ Core principles live in SKILL.md; this file holds only what it does not.
 - G13 artificial coupling · G14 feature envy · G15 selector arguments · G16 obscured intent
 - G17 responsibility in the wrong place · G18 static that should be polymorphic · G19 missing explanatory variables · G20 name doesn't say what the function does
 - G21 not understanding the algorithm · G22 logical dependency not made physical · G23 if/switch where polymorphism fits · G24 ignoring standard conventions
-- G25 magic numbers · G26 imprecision · G27 convention where structure would enforce it · G28 unencapsulated conditionals
+- G25 magic numbers (any literal whose meaning isn't self-evident; obvious values are fine) · G26 imprecision · G27 convention where structure would enforce it · G28 unencapsulated conditionals
 - G29 negative conditionals · G30 function does more than one thing · G31 hidden temporal coupling · G32 arbitrary structure
 - G33 unencapsulated boundary conditions · G34 function mixes abstraction levels · G35 config buried at low levels · G36 transitive navigation (Demeter)
 
-**Java** — J1 wildcard imports to shorten lists · J2 inheriting constants · J3 constants instead of enums (TS readings in SKILL.md → TypeScript Notes)
+**Java** — J1 long import lists (use wildcards) · J2 inheriting constants · J3 constants instead of enums (TS readings in SKILL.md → TypeScript Notes)
 
 **Names** — N1 not descriptive · N2 wrong abstraction level · N3 nonstandard nomenclature · N4 ambiguous · N5 length doesn't match scope · N6 encodings · N7 hides side effects
 
