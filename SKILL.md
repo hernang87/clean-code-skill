@@ -1,6 +1,6 @@
 ---
 name: martin-clean-code
-description: "An independent quick-reference for the clean-code principles popularized by Robert C. Martin. Use when applying clean-code frameworks for naming, functions, error handling, classes (SRP/OCP/DIP), unit testing (TDD/F.I.R.S.T.), refactoring, and the smells & heuristics catalog (G1–G36), or when reviewing code for cleanliness."
+description: "Robert C. Martin's Clean Code principles and smell catalog (C/E/F/G/J/N/T, G1–G36). Use when writing, reviewing, or refactoring code for naming, functions, comments, error handling, SRP/OCP/DIP, TDD/F.I.R.S.T., or a smell code."
 allowed-tools:
   - Read
   - Grep
@@ -9,28 +9,19 @@ argument-hint: [topic, framework name, or smell code (e.g. G14)]
 
 # Clean Code Principles — Quick Reference
 
-> **Disclaimer** — This is an independent quick-reference for the clean-code *principles and craftsmanship practices* popularized by Robert C. Martin. It does **not** reproduce the book's text, code listings, examples, figures, or chapter structure; it restates the named frameworks and terminology in original, condensed form. It is a practical aid, **not a substitute** for the book — read *Clean Code: A Handbook of Agile Software Craftsmanship* (Robert C. Martin, Prentice Hall, 2008) for the complete, authoritative treatment. All frameworks, terminology, and heuristics are the intellectual property of Robert C. Martin and his publisher.
+> **Disclaimer** — Independent restatement of the principles in Robert C. Martin's *Clean Code* (Prentice Hall, 2008); it does not reproduce the book's text, examples, or structure, and is not a substitute for it. Frameworks and terminology are the IP of the author and publisher.
 
-## How to Use This Skill
-
-- **Without arguments** — load the core frameworks below for reference while coding or reviewing.
-- **With a topic** — ask about `naming`, `error handling`, `TDD`, `SRP`, `concurrency`; I answer from the Core Frameworks below and the supporting files.
-- **With a smell code** — ask about `G14` or `F3`; see the smell-code groups in [cheatsheet.md](cheatsheet.md).
-- **For terms or techniques** — see [glossary.md](glossary.md) (definitions) and [patterns.md](patterns.md) (when / how / trade-offs).
-
-When you ask about something not in Core Frameworks, I read the relevant glossary/patterns/cheatsheet file first.
-
----
+Smell codes and formatting → [cheatsheet.md](cheatsheet.md) · terms → [glossary.md](glossary.md) · techniques → [patterns.md](patterns.md). Read them only when the question needs them.
 
 ## Core Frameworks & Mental Models
 
 **The prime directive.** Clean code does one thing well and *reads like well-written prose*. The only way to go fast is to keep the code clean — always. Apply the **Boy Scout Rule**: leave the code cleaner than you found it on every check-in. Beware **LeBlanc's Law**: *Later equals never.*
 
-**Functions.** Small, then smaller. **Do one thing**, at **one level of abstraction**, and read top-down (**Stepdown Rule**). Arguments: 0 > 1 > 2 > 3; **no flag arguments** (they announce the function does >1 thing), **no output arguments**. **Command Query Separation**: do something or answer something, never both. Prefer **exceptions over return codes**; eliminate duplication (**DRY** — "the root of all evil").
+**Functions.** Small, then smaller. **Do one thing**, at **one level of abstraction**, and read top-down (**Stepdown Rule**). Arguments: 0 > 1 > 2 > 3; **no flag arguments** (they announce the function does >1 thing), **no output arguments**. **No side effects** — a hidden state change makes the name lie and creates temporal coupling. Multiple `return`s are fine in small functions. **Command Query Separation**: do something or answer something, never both. Prefer **exceptions over return codes**; eliminate duplication (**DRY** — "the root of all evil").
 
 **Naming.** Use intention-revealing, pronounceable, searchable names; avoid disinformation and encodings (no Hungarian/`m_`/`I`-prefix). Classes are nouns, methods are verbs. **One word per concept.** Name length scales with scope. A name that needs a comment is a failed name.
 
-**Comments.** A comment is a failure to express intent in code; the best comment is the one you found a way not to write. **Comments lie** as code drifts. **Delete commented-out code immediately** — version control remembers.
+**Comments.** Comments are a necessary evil: prefer expressing intent in code, because **comments lie** as code drifts. Some comments earn their place — legal notices, informative context, the *why* behind a decision, clarification of an unchangeable API, warnings of consequences, TODOs, amplification of something easy to miss, and docs for public APIs. Remove noise, redundant, journal, and misleading comments. **Delete commented-out code** — version control remembers.
 
 **Objects vs. Data (anti-symmetry).** Objects hide data and expose behavior → easy to add new *types*. Data structures expose data → easy to add new *functions*. Don't build **hybrids**. Obey the **Law of Demeter** — talk only to immediate friends; no train wrecks. **Tell, don't ask.**
 
@@ -52,43 +43,32 @@ When you ask about something not in Core Frameworks, I read the relevant glossar
 
 ---
 
-## Topic Index
+## Apply When Writing or Reviewing
 
-Each topic maps to its entry in **Core Frameworks & Mental Models** above; the smell-code
-groups (C/E/F/G/J/N/T) are summarized in [cheatsheet.md](cheatsheet.md).
+1. Names reveal intent; one word per concept; length matches scope (N1–N7).
+2. Each function does one thing at one level of abstraction; ≤3 args, no flag args, no hidden side effects (F1–F4, G30, G34).
+3. No duplication (G5); nothing at the wrong level of abstraction (G6); no magic numbers (G25).
+4. Boundaries and errors handled explicitly; no ignored failures (G3, G4).
+5. Comments explain *why*, not *what* (C1–C5).
 
-- **Adapter / boundaries** → Boundaries
-- **Architecture / systems** → Systems
-- **Cohesion / classes** → Classes
-- **Comments** → Comments (smell group C1–C5)
-- **Concurrency / threads / deadlock** → Concurrency
-- **Dependency Injection / IoC** → Systems
-- **DIP / OCP / SRP** → Classes
-- **DRY / duplication** → Functions, Emergent design (smell G5)
-- **Error handling / exceptions / null** → Error handling
-- **F.I.R.S.T. / TDD / testing** → Tests (smell group T1–T9)
-- **Formatting** → see [cheatsheet.md](cheatsheet.md)
-- **Functions / arguments / flag args** → Functions (smell group F1–F4)
-- **Law of Demeter / train wreck** → Objects vs. Data (smell G36)
-- **Naming** → Naming (smell group N1–N7)
-- **Objects vs data structures** → Objects vs. Data
-- **Polymorphism vs switch** → Functions (smell G23)
-- **Refactoring / successive refinement** → Definition of done; [patterns.md](patterns.md)
-- **Simple Design (four rules)** → Emergent design
-- **Smells & heuristics catalog (G/N/F/C/T/E/J)** → [cheatsheet.md](cheatsheet.md)
-- **Special Case Pattern** → Error handling; [patterns.md](patterns.md)
+Report each violation as: **smell code · location · one-line fix** (e.g. `G25 · utils.ts:42 · extract SECONDS_PER_DAY`).
 
-## Supporting Files
+## Precedence
 
-- [glossary.md](glossary.md) — key terms with concise definitions
-- [patterns.md](patterns.md) — concrete techniques (when / how / trade-offs)
-- [cheatsheet.md](cheatsheet.md) — one-page quick reference of every rule
+**The book is the authority.** Everything in this skill that is not a restatement of the
+book (the checklist, the TypeScript Notes, any custom guidance) is an aid for applying the
+book. If a custom note and the book disagree, follow the book and treat the note as a bug.
 
----
+Project or harness rules (for example, limits on what a task can change) still bound
+*what you are allowed to change*. They do not redefine what clean code is. When such a rule
+stops you from applying a principle, say which smell you left in place and why.
 
-## Scope & Limits
+## TypeScript Notes
 
-The principles here are language-agnostic; the original book's examples are written in Java.
-This is a condensed reference for *applying* the principles — for the full treatment,
-worked examples, and case studies, read the book. For applying these to a specific codebase,
-combine with project tools and reviews.
+These are translations of the book's principles into TypeScript idiom. They do not replace them.
+
+- **Never return or pass null** — this also applies to `undefined` as a "nothing" value. Return an empty collection or a Special Case object. Use `strictNullChecks` so the compiler catches what is left.
+- **Exceptions over return codes** — all TS exceptions are unchecked, which is what the book recommends. Throw errors that carry context, and don't return error codes or sentinel values.
+- **Polymorphism over switch (G23)** — allow one `switch` on a type discriminant, kept inside a factory. Every other dispatch uses polymorphism.
+- **Java rules (J1–J3), translated** — J1: import only what you use. J2: don't share constants through inheritance. J3: prefer enums or literal unions over loose constants.
+- **Encodings (N6)** — don't prefix interfaces with `I` and don't put types in names. The type system already carries that information.
