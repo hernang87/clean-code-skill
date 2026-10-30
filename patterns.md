@@ -17,7 +17,7 @@
 
 ## Wrap Third-Party APIs
 **When**: a foreign type (e.g. `Map`) or library would otherwise spread through the codebase.
-**How**: keep it inside one class (or close family) exposing only the operations you need; don't pass it through public APIs; convert its exceptions to yours. Not every use needs a wrapper.
+**How**: keep it inside one class (or close family) exposing only the operations you need; don't pass it through public APIs; convert its exceptions to yours (this also collapses repeated catch blocks). Not every use needs a wrapper.
 **Trade-offs**: a thin wrapper layer; gains testability and one-place migration.
 
 ## Learning Tests
@@ -27,12 +27,12 @@
 
 ## Code to the Interface You Wish You Had
 **When**: depending on code that doesn't exist yet (another team's API).
-**How**: define your ideal interface, implement against it, adapt to reality later with an Adapter.
+**How**: define your ideal interface, implement against it, adapt to reality later with an Adapter; test against a fake at the seam.
 **Trade-offs**: an adapter to write later; keeps your design clean and testable now.
 
 ## Exceptions over Return Codes; Special Case Object
 **When**: error handling clutters the happy path, or you'd return/check null.
-**How**: throw unchecked exceptions with context; for "nothing"/edge cases return a Special Case object or empty collection — never null.
+**How**: throw unchecked exceptions whose message names the operation and the failure type. Define exception classes by how callers catch them — often one type carrying data is enough. For normal "nothing" cases return a Special Case object or empty collection; don't return or pass null (except to APIs that expect it). If error handling obscures the logic, restructure it.
 **Trade-offs**: must define exception/special-case types; logic stays clean and NPE-free.
 
 ## Separate Construction from Use (DI / Separation of Main)
@@ -57,7 +57,7 @@
 
 ## Concurrency Defenses
 **When**: introducing threads.
-**How**: isolate concurrency code (SRP); limit & protect shared mutable data; prefer copies/thread-confinement; use `java.util.concurrent`; break one deadlock condition by lock-ordering.
+**How**: get the non-concurrent code working first; isolate concurrency code (SRP); limit & protect shared mutable data; keep synchronized sections small; prefer copies/thread-confinement; never dismiss an intermittent failure as a one-off; use `java.util.concurrent`; break one deadlock condition by lock-ordering.
 **Trade-offs**: added structure/overhead; intermittent bugs become tractable.
 
 ## Build a Domain-Specific Testing Language

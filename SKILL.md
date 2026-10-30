@@ -25,9 +25,9 @@ Smell codes and formatting → [cheatsheet.md](cheatsheet.md) · terms → [glos
 
 **Objects vs. Data (anti-symmetry).** Objects hide data and expose behavior → easy to add new *types*. Data structures expose data → easy to add new *functions*. Choose per part of the system; "everything is an object" is a myth. Don't build **hybrids**. The **Law of Demeter** applies to *objects*: don't navigate through their internals (train wrecks). Reaching through plain data structures is not a violation. **Tell, don't ask.**
 
-**Error handling.** Use **unchecked exceptions** with context (the operation and the failure type). Define exception classes by how callers catch them — often one type carrying data is enough. **Wrap third-party APIs** to collapse repeated catch blocks. Don't return null; don't pass null — use a **Special Case object**, an empty collection, or an exception (APIs that expect null are the exception). Error handling that obscures the logic is wrong.
+**Error handling.** **Unchecked exceptions** with context, not return codes. Don't return or pass null — use a **Special Case object**, an empty collection, or an exception. Details → [patterns.md](patterns.md).
 
-**Boundaries.** Keep foreign types (and generic containers like maps) inside one class or close family; don't pass them through public APIs. Write **learning tests** to pin third-party behavior. For not-yet-built code, **code to the interface you wish you had** + Adapter, with a fake at the seam.
+**Boundaries.** Keep foreign types inside one class, out of public APIs; pin them with **learning tests**. Details → [patterns.md](patterns.md).
 
 **Tests are first-class code.** **Three Laws of TDD**: (1) no production code without a failing test, (2) write only enough test to fail, (3) write only enough code to pass. Clean tests are **F.I.R.S.T.** — Fast, Independent, Repeatable, Self-Validating, Timely. One concept per test. Test code may be less efficient than production code, never less clean. Dirty tests are as bad as, if not worse than, no tests: they rot and take your freedom to change with them.
 
@@ -37,7 +37,7 @@ Smell codes and formatting → [cheatsheet.md](cheatsheet.md) · terms → [glos
 
 **Emergent design — the Four Rules of Simple Design** (priority order): (1) Runs all the tests, (2) Contains no duplication, (3) Expresses programmer intent, (4) Minimizes classes/methods. Tests first; then refactor (rules 2–4) under green. Avoid dogma (an interface per class, splitting for its own sake).
 
-**Concurrency.** Decouples *what* from *when* — powerful but hard. Isolate concurrency code (SRP); limit and protect shared mutable data; keep synchronized sections small; prefer copies and thread-confinement; get non-concurrent code working first. Never dismiss an intermittent failure as a one-off — treat it as a candidate threading bug.
+**Concurrency.** Isolate it (SRP); limit and protect shared mutable data. Never dismiss an intermittent failure as a one-off. Details → [patterns.md](patterns.md) and [cheatsheet.md](cheatsheet.md).
 
 **Refactoring.** Only under tests you trust, in tiny steps, checking every caller first; never a big-bang rewrite. Details → [patterns.md](patterns.md) (Successive Refinement).
 
